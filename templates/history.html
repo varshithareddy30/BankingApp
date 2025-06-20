@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MyBank - History</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <h2>📜 Transaction History</h2>
+    <table>
+      <tr><th>Sender</th><th>Receiver</th><th>Amount</th><th>Time</th></tr>
+      {% for t in transactions %}
+        <tr>
+          <td>{{ t[1] }}</td>
+          <td>{{ t[2] }}</td>
+          <td>₹{{ t[3] }}</td>
+          <td>{{ t[4] }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+    <a href="{{ url_for('dashboard') }}" class="btn">⬅ Back to Dashboard</a>
+  </div>
+</body>
+</html>

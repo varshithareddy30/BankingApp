@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MyBank - Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f8fb;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    p {
+      text-align: center;
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    th {
+      background-color: #2980b9;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input, button {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #27ae60;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 15px;
+      background-color: #8e44ad;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .btn:hover {
+      background-color: #732d91;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🏦 Welcome to your Banking Dashboard</h1>
+    <p>Use the options below to deposit, withdraw, transfer money, or view history.</p>
+
+    <h2>👤 Customers</h2>
+    <table>
+      <tr><th>ID</th><th>Name</th><th>Email</th><th>Balance</th></tr>
+      {% for user in users %}
+        <tr>
+          <td>{{ user[0] }}</td>
+          <td>{{ user[1] }}</td>
+          <td>{{ user[2] }}</td>
+          <td>₹{{ user[3] }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+
+    <h2>💸 Transfer Money</h2>
+    <form method="POST" action="{{ url_for('transfer') }}">
+      <input type="text" name="sender" placeholder="Sender Name" required>
+      <input type="text" name="receiver" placeholder="Receiver Name" required>
+      <input type="number" name="amount" placeholder="Amount" step="0.01" required>
+      <button type="submit">Transfer</button>
+    </form>
+
+    <div style="text-align: center;">
+      <a href="{{ url_for('history') }}" class="btn">📜 View Transaction History</a>
+    </div>
+  </div>
+</body>
+</html>
